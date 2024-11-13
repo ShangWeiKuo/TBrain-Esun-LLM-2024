@@ -95,8 +95,15 @@ class PreProcess:
                 corpus_dict = json.load(json_file)
                 return {int(key): value for key, value in corpus_dict.items()}
 
-        # 若 JSON 文件不存在，則從 PDF 中提取並保存文本
-        masked_file_ls = os.listdir(source_path)
+        # 若 JSON 文件不存在，則從 PDF 中提取並保存文本，略過 .DS_Store 檔案, .json 檔案
+        masked_file_ls = [
+            file
+            for file in os.listdir(source_path)
+            if file.endswith(".pdf") and not file.startswith(".")
+        ]
+
+        masked_file_ls.sort(key=lambda x: int(x.replace(".pdf", "")))
+
         corpus_dict = {
             int(file.replace(".pdf", "")): self.read_pdf(
                 os.path.join(source_path, file)
