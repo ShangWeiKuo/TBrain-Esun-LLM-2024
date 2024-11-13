@@ -1,10 +1,18 @@
-import os
 import json
+from config.data_path import (
+    source_path,
+    questions_path,
+    output_path,
+    insurance_json_name,
+    finance_json_name,
+    faq_json_name,
+)
+from config.model_name import tokenizer_name, model_name
 from Preprocess.data_preprocess import PreProcess
 from Model.retrieval import Retrieval
 
 
-def output_pre_retrieval(questions, results_rerank):
+def output_pre_retrieval(output_path, questions, results_rerank):
     """產出提交檔案
 
     Args:
@@ -12,7 +20,6 @@ def output_pre_retrieval(questions, results_rerank):
         results_rerank (list): 檢索結果
     """
     answer_dict = {"answers": []}  # 初始化字典
-    output_path = "dataset/preliminary/pred_retrieve.json"
 
     for idx, q_dict in enumerate(questions):
         # 將結果加入字典
@@ -30,10 +37,14 @@ def output_pre_retrieval(questions, results_rerank):
 def main():
     """主程式"""
     # 初始化數據預處理方法
-    data_preprocess = PreProcess()
+    data_preprocess = PreProcess(
+        source_path,
+        questions_path,
+        insurance_json_name,
+        finance_json_name,
+        faq_json_name,
+    )
     # 初始化模型
-    tokenizer_name = "BAAI/bge-reranker-v2-m3"
-    model_name = "BAAI/bge-reranker-v2-m3"
     retrieval = Retrieval(tokenizer_name, model_name)
 
     corpora, questions = data_preprocess.get_raw_data()
@@ -46,7 +57,7 @@ def main():
         questions, doc_dict, chunk_size=512
     )
 
-    output_pre_retrieval(questions, results_rerank)
+    output_pre_retrieval(output_path, questions, results_rerank)
 
 
 if __name__ == "__main__":
