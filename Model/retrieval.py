@@ -13,7 +13,13 @@ class Retrieval:
         """
         self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
         self.model = AutoModelForSequenceClassification.from_pretrained(model_name)
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+        if torch.cuda.is_available():
+            self.device = torch.device("cuda")
+        elif torch.backends.mps.is_available():
+            self.device = torch.device("mps")
+        else:
+            self.device = torch.device("cpu")
 
     def langchain_rerank_retrieve(self, query, source_files, documents, chunk_size):
         """使用 langchain rerank 演算法進行文件檢索。
