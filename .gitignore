@@ -1,0 +1,56 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# C extensions
+*.so
+
+# macOS
+.DS_Store
+
+*.db
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# IDE specific files
+.idea/
+.vscode/
+
+# Compiled Python files
+*.pyc
+
+# Log files
+*.log
+*.log.*
+
+# Dependency directories
+/node_modules/
+/bower_components/
+
+# Compiled binaries or executables
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Package files
+*.egg
+*.egg-info/
+.idea/
+dist/
+build/
+
+# Temporary files
+*.ipynb
+
+# Large directories
+dataset
+reference
