@@ -11,8 +11,20 @@ from langchain.text_splitter import (
 
 
 class PreProcess:
-    def __init__(self):
+    def __init__(
+        self,
+        source_path,
+        questions_path,
+        insurance_json_name,
+        finance_json_name,
+        faq_json_name,
+    ):
         """定義資料前處理相關參數"""
+        self.source_path = source_path
+        self.questions_path = questions_path
+        self.insurance_json_name = insurance_json_name
+        self.finance_json_name = finance_json_name
+        self.faq_json_name = faq_json_name
         # 中文數字到阿拉伯數字的映射
         self.chinese_numerals = {
             "○": "0",
@@ -61,9 +73,10 @@ class PreProcess:
         Returns:
             str: 指定頁面的提取文本
         """
-        with pdfplumber.open(pdf_loc) as pdf:
-            pdf_text = "".join([page.extract_text() or "" for page in pdf.pages])
-        return pdf_text
+        if pdf_loc.endswith(".pdf"):
+            with pdfplumber.open(pdf_loc) as pdf:
+                pdf_text = "".join([page.extract_text() or "" for page in pdf.pages])
+            return pdf_text
 
     def load_data(self, source_path, json_name):
         """從 PDF 載入或提取文本並保存為 JSON 文件。
@@ -102,28 +115,27 @@ class PreProcess:
         Returns:
             dict: questions 與 corpora 的 dict 資料
         """
-        source_path = "reference"
         # 載入 insurance、finance 內容
         corpora = {
-            "insurance": PreProcess.load_data(
-                os.path.join(source_path, "insurance"), "insurance_data.json"
+            "insurance": self.load_data(
+                os.path.join(self.source_path, "insurance"), self.insurance_json_name
             ),
-            "finance": PreProcess.load_data(
-                os.path.join(source_path, "finance"), "finance_data.json"
+            "finance": self.load_data(
+                os.path.join(self.source_path, "finance"), self.finance_json_name
             ),
         }
         # 載入 FAQ 內容
         with open(
-            os.path.join(source_path, "faq/pid_map_content.json"), "r", encoding="utf-8"
+            os.path.join(self.source_path, "faq", self.faq_json_name),
+            "r",
+            encoding="utf-8",
         ) as f:
             corpora["faq"] = {
                 int(key): str(value) for key, value in json.load(f).items()
             }
 
         # 載入 questions 內容
-        questions_path = "dataset/preliminary/questions_preliminary.json"
-
-        with open(questions_path, "r", encoding="utf-8") as f:
+        with open(self.questions_path, "r", encoding="utf-8") as f:
             questions = json.load(f)["questions"]
 
         return corpora, questions
