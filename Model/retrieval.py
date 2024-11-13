@@ -67,9 +67,8 @@ class Retrieval:
 
         return top_file_id
 
-    # 檢索流程主程式
     def process_retrieval_rerank(self, questions, corpora, chunk_size=512):
-        """處理一組問題的檢索，並保存結果。
+        """檢索流程主程式。
 
         Args:
             questions (list): 問題列表。
