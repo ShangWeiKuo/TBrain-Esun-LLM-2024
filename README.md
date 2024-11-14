@@ -17,7 +17,6 @@
 ├── dataset                   # 所需的數據集
 │   ├── preliminary           # 初賽需預測檔案存放資料夾 (手動下載後放至此資料夾)
 │   └── reference             # 初賽 PDF 檔存放資料夾 (手動下載後解壓縮至此資料夾)
-PDF 文件（可以手動上傳 PDF 文件）
 ├── main.py                   # 執行預處理和檢索的主程式
 ├── requirements.txt          # 所需的 Python 套件
 └── README.md                 # 專案說明文件
