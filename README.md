@@ -79,7 +79,7 @@ python main.py
 
 ### Huggingface transformers （bge-reranker-v2-m3）模型使用說明
 以下是如何在程式中使用 `bge-reranker-v2-m3` 模型的範例程式碼：
-```
+```python
 import torch
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
