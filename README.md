@@ -4,18 +4,23 @@
 ```
 .
 ├── Preprocess
-│   ├── data_preprocess.py            # 使用 pdfplumber 從 PDF 中提取文字，並進行文字轉換與 markdown 切分
-│   └── README.md                     # 預處理步驟的文件說明
+│   ├── data_preprocess.py    # 使用 pdfplumber 從 PDF 中提取文字，並進行文字轉換與 markdown 切分
+│   └── README.md             # 預處理步驟的文件說明
 ├── Model
-│   ├── retrieval.py                  # 使用 langchain rerank 演算法進行文件檢索
-│   └── README.md                     # 檢索步驟的文件說明
-├── dataset                           # 所需的數據集
-│   ├── questions_preliminary.json    # 初賽測試檔案
-│   └── reference                     # 初賽 PDF 檔存放資料夾 (手動下載後解壓縮至此資料夾)
+│   ├── retrieval.py          # 使用 langchain rerank 演算法進行文件檢索
+│   └── README.md             # 檢索步驟的文件說明
+├── config
+│   ├── data_path.ini         # 資料路徑設定檔
+│   ├── data_path.py          # 讀取 data_path.ini 檔案的方法
+│   ├── model_path.ini        # 模型路徑設定檔
+│   └── model_path.py         # 讀取 model_path.ini 檔案的方法
+├── dataset                   # 所需的數據集
+│   ├── preliminary           # 初賽需預測檔案存放資料夾 (手動下載後放至此資料夾)
+│   └── reference             # 初賽 PDF 檔存放資料夾 (手動下載後解壓縮至此資料夾)
 PDF 文件（可以手動上傳 PDF 文件）
-├── main.py                           # 執行預處理和檢索的主程式
-├── requirements.txt                  # 所需的 Python 套件
-└── README.md                         # 專案說明文件
+├── main.py                   # 執行預處理和檢索的主程式
+├── requirements.txt          # 所需的 Python 套件
+└── README.md                 # 專案說明文件
 ```
 
 ---
