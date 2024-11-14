@@ -54,3 +54,7 @@ build/
 # Large directories
 dataset/preliminary/*.json
 dataset/reference/*
+
+# Ignore empty directories
+!dataset/preliminary/.gitkeep
+!dataset/reference/.gitkeep
