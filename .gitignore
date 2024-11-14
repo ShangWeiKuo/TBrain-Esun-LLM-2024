@@ -52,5 +52,5 @@ build/
 *.ipynb
 
 # Large directories
-dataset
-reference
+dataset/preliminary/*.json
+dataset/reference/*
